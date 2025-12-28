@@ -45,28 +45,42 @@ class Student {
 
 public class Main {
     public static void main(String[] args) {
+
         Scanner sc = new Scanner(System.in);
-        Student student;
+        ArrayList<Student> students = new ArrayList<>();
 
-        System.out.print("Enter student name: ");
-        student = new Student(sc.nextLine());
+        System.out.print("How many students? ");
+        int studentCount = sc.nextInt();
+        sc.nextLine(); // consume newline
 
-        System.out.print("How many grades? ");
-        int n = sc.nextInt();
+        for (int s = 1; s <= studentCount; s++) {
 
-        for (int i = 1; i <= n; i++) {
-            System.out.print("Enter grade " + i + ": ");
-            student.addGrade(sc.nextInt());
+            System.out.print("\nEnter name of student " + s + ": ");
+            String name = sc.nextLine();
+            Student student = new Student(name);
+
+            System.out.print("How many grades for " + name + "? ");
+            int gradeCount = sc.nextInt();
+
+            for (int i = 1; i <= gradeCount; i++) {
+                System.out.print("Enter grade " + i + ": ");
+                student.addGrade(sc.nextInt());
+            }
+
+            sc.nextLine(); // consume newline
+            students.add(student);
         }
 
-        System.out.println("\n--- Student Report ---");
-        System.out.println("Name: " + student.name);
-        System.out.println("Average: " + student.getAverage());
-        System.out.println("Highest: " + student.getMax());
-        System.out.println("Lowest: " + student.getMin());
-        System.out.println("Status: " + (student.isPassed() ? "PASSED" : "FAILED"));
+        System.out.println("\n===== STUDENTS REPORT =====");
+
+        for (Student st : students) {
+            System.out.println("\nName: " + st.name);
+            System.out.println("Average: " + st.getAverage());
+            System.out.println("Highest: " + st.getMax());
+            System.out.println("Lowest: " + st.getMin());
+            System.out.println("Status: " + (st.isPassed() ? "PASSED" : "FAILED"));
+        }
 
         sc.close();
     }
 }
-
